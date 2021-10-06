@@ -1,3 +1,4 @@
+import { ApiTags } from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -8,11 +9,10 @@ import {
   Post,
   Body,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 
 import { CreateUserDto, UpdateUserDto } from '../dtos/users.dto';
-import { ParseIntPipe } from 'src/common/parse-int.pipe';
 import { UsersService } from '../services/users.service';
 
 @ApiTags('Users')
