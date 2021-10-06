@@ -1,3 +1,4 @@
+import { ApiTags } from '@nestjs/swagger';
 import {
   Controller,
   Get,
@@ -8,12 +9,11 @@ import {
   HttpStatus,
   HttpCode,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 
 import { CreateCustomerDto, UpdateCustomerDto } from '../dtos/customers.dto';
 import { CustomersService } from '../services/customers.service';
-import { ParseIntPipe } from 'src/common/parse-int.pipe';
 
 @ApiTags('Customers')
 @Controller('customers')
