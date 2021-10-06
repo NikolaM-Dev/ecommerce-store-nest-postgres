@@ -27,11 +27,13 @@ export class CustomersService {
 
   async create(payload: CreateCustomerDto) {
     const newCustomer = this.customerRepository.create(payload);
+
     return await this.customerRepository.save(newCustomer);
   }
 
   async update(id: number, payload: UpdateCustomerDto) {
     const customer = await this.findById(id);
+
     this.customerRepository.merge(customer, payload);
 
     return await this.customerRepository.save(customer);
@@ -39,6 +41,7 @@ export class CustomersService {
 
   async remove(id: number) {
     const customer = await this.findById(id);
+
     await this.customerRepository.delete(id);
 
     return customer;
