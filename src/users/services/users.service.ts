@@ -1,11 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { ProductsService } from 'src/products/services/products.service';
 
 import { CreateUserDto, UpdateUserDto } from '../dtos/users.dto';
-import { CustomersService } from './customers.service';
-import { ProductsService } from 'src/products/services/products.service';
 import { User } from '../entities/user.entity';
+
+import { CustomersService } from './customers.service';
 
 @Injectable()
 export class UsersService {
@@ -37,6 +38,7 @@ export class UsersService {
 
     if (payload.customerId) {
       const customer = await this.customersService.findById(payload.customerId);
+
       newUser.customer = customer;
     }
 
@@ -45,6 +47,7 @@ export class UsersService {
 
   async update(id: number, payload: UpdateUserDto) {
     const user = await this.findById(id);
+
     this.userReposity.merge(user, payload);
 
     return await this.userReposity.save(user);
@@ -52,6 +55,7 @@ export class UsersService {
 
   async remove(id: number) {
     const user = await this.findById(id);
+
     await this.userReposity.delete(id);
 
     return user;
