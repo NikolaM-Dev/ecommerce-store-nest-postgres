@@ -42,6 +42,7 @@ export class ProductsService {
 
     if (payload.brandId) {
       const brand = await this.brandRepository.findOne(payload.brandId);
+
       newProduct.brand = brand;
     }
 
@@ -49,6 +50,7 @@ export class ProductsService {
       const categories = await this.categoryRepository.findByIds(
         payload.categoriesIds,
       );
+
       newProduct.categories = categories;
     }
 
@@ -60,6 +62,7 @@ export class ProductsService {
 
     if (payload.brandId) {
       const brand = await this.brandRepository.findOne(payload.brandId);
+
       product.brand = brand;
     }
 
@@ -67,6 +70,7 @@ export class ProductsService {
       const categories = await this.categoryRepository.findByIds(
         payload.categoriesIds,
       );
+
       product.categories = categories;
     }
 
@@ -77,6 +81,7 @@ export class ProductsService {
 
   async removeCategoryByProduct(productId: number, categoryId: number) {
     const product = await this.findById(productId);
+
     product.categories = product.categories.filter(
       (category) => category.id !== categoryId,
     );
@@ -98,6 +103,7 @@ export class ProductsService {
 
   async remove(id: number) {
     const product = await this.findById(id);
+
     await this.productRepository.delete(id);
 
     return product;
