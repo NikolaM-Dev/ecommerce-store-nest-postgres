@@ -10,9 +10,14 @@ import {
   HttpStatus,
   HttpCode,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 
-import { CreateProductDto, UpdateProductDto } from '../dtos/products.dto';
+import {
+  CreateProductDto,
+  FilterProductsDto,
+  UpdateProductDto,
+} from '../dtos/products.dto';
 import { ProductsService } from '../services/products.service';
 
 @ApiTags('Products')
@@ -21,8 +26,8 @@ export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
   @Get()
-  async findMany() {
-    return await this.productsService.findMany();
+  async findMany(@Query() params: FilterProductsDto) {
+    return await this.productsService.findMany(params);
   }
 
   @Get(':id')
