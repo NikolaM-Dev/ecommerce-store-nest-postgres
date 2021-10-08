@@ -3,6 +3,15 @@ GET {{HOST}}/products
 
 ###
 
+# @name findManyPagination
+GET {{HOST}}/products?
+&limit=3
+&offset=2
+
+###
+
+
+
 # @name findById
 GET {{HOST}}/products/3
 
