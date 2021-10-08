@@ -1,6 +1,7 @@
 import {
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -10,7 +11,7 @@ import {
 import { Customer } from './customer.entity';
 import { OrderItem } from './order-product.entity';
 
-@Entity()
+@Entity({ name: 'orders' })
 export class Order {
   @PrimaryGeneratedColumn()
   id: number;
@@ -30,6 +31,7 @@ export class Order {
   updateAt: Date;
 
   @ManyToOne(() => Customer, (customer) => customer.orders)
+  @JoinColumn({ name: 'customer_id' })
   customer: Customer;
 
   @OneToMany(() => OrderItem, (ordenItem) => ordenItem.order)

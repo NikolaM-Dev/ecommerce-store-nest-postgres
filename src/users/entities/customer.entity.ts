@@ -11,7 +11,7 @@ import {
 import { Order } from './order.entity';
 import { User } from './user.entity';
 
-@Entity()
+@Entity({ name: 'customers' })
 export class Customer {
   @PrimaryGeneratedColumn()
   id: number;

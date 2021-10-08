@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   Index,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
@@ -13,7 +14,7 @@ import {
 import { Brand } from './brand.entity';
 import { Category } from './category.entity';
 
-@Entity()
+@Entity({ name: 'products' })
 @Index(['price', 'stock'])
 export class Product {
   @PrimaryGeneratedColumn()
@@ -35,10 +36,19 @@ export class Product {
   image: string;
 
   @ManyToOne(() => Brand, (brand) => brand.products)
+  @JoinColumn({ name: 'brand_id' })
   brand: Brand;
 
   @ManyToMany(() => Category, (category) => category.products)
-  @JoinTable()
+  @JoinTable({
+    name: 'products_categories',
+    joinColumn: {
+      name: 'product_id',
+    },
+    inverseJoinColumn: {
+      name: 'category_id',
+    },
+  })
   categories: Category[];
 
   @CreateDateColumn({
