@@ -10,7 +10,12 @@ GET {{HOST}}/products?
 
 ###
 
+# @name findManyMinMaxPrice
+GET {{HOST}}/products?
+&minPrice=600
+&maxPrice=1800
 
+###
 
 # @name findById
 GET {{HOST}}/products/3
