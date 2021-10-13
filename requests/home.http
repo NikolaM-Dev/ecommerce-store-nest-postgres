@@ -1,0 +1,4 @@
+# @name home
+GET {{HOST}}
+# Headers
+Auth: 1234
