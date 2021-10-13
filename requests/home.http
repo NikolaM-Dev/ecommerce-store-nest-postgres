@@ -1,11 +1,16 @@
 # @name apiKeyAllow
-GET {{HOST}}
+GET {{HOST}}/test
 # headers
 Auth: SECRET_API_KEY_1342
 
 ###
 
 # @name apiKeyNotAllow
-GET {{HOST}}
+GET {{HOST}}/test
 # headers
 Auth: 1234
+
+###
+
+# @name isPublic
+GET {{HOST}}
