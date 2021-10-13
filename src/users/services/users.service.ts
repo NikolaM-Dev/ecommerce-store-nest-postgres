@@ -33,6 +33,10 @@ export class UsersService {
     return user;
   }
 
+  async findByEmail(email: string) {
+    return this.userReposity.findOne({ where: { email } });
+  }
+
   async create(payload: CreateUserDto) {
     const newUser = this.userReposity.create(payload);
 
