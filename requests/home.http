@@ -1,0 +1,11 @@
+# @name apiKeyAllow
+GET {{HOST}}
+# headers
+Auth: SECRET_API_KEY_1342
+
+###
+
+# @name apiKeyNotAllow
+GET {{HOST}}
+# headers
+Auth: 1234
