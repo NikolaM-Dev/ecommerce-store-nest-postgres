@@ -19,11 +19,12 @@ import {
   FilterProductsDto,
   UpdateProductDto,
 } from '../dtos/products.dto';
+import { JwtAuthGuard, RolesGuard } from '../../auth/guards';
 import { ProductsService } from '../services/products.service';
-import { Public } from '../../auth/decorators';
-import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { Public, Roles } from '../../auth/decorators';
+import { Role } from '../../auth/models';
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('Products')
 @Controller('products')
 export class ProductsController {
@@ -42,11 +43,13 @@ export class ProductsController {
     return await this.productsService.findById(id);
   }
 
+  @Roles(Role.ADMIN)
   @Post()
   async create(@Body() payload: CreateProductDto) {
     return await this.productsService.create(payload);
   }
 
+  @Roles(Role.ADMIN)
   @Put(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
