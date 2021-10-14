@@ -13,24 +13,11 @@ const API_KEY_PROD = 'production1234';
   imports: [
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigType<typeof config>) => {
-        const {
-          host,
-          port,
-          user: username,
-          password,
-          dbName: database,
-          synchronize,
-        } = configService.postgres;
-
         return {
           type: 'postgres',
-          host,
-          port,
-          username,
-          password,
-          database,
-          entities: ['dist/**/*.entity{.ts,.js}'],
-          synchronize,
+          url: configService.postresURL,
+          ssl: { rejectUnauthorized: false },
+          synchronize: false,
           retryDelay: 3000,
           retryAttempts: 10,
         };
@@ -46,20 +33,9 @@ const API_KEY_PROD = 'production1234';
     {
       provide: 'PG',
       useFactory: (configService: ConfigType<typeof config>) => {
-        const {
-          dbName: database,
-          user,
-          host,
-          password,
-          port,
-        } = configService.postgres;
-
         const client = new Client({
-          user,
-          host,
-          database,
-          password,
-          port,
+          connectionString: configService.postresURL,
+          ssl: { rejectUnauthorized: false },
         });
 
         client.connect();
