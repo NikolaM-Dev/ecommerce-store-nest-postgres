@@ -15,11 +15,7 @@ const API_KEY_PROD = 'production1234';
       useFactory: (configService: ConfigType<typeof config>) => {
         return {
           type: 'postgres',
-          url: configService.postresURL,
-          synchronize: false,
-          ssl: { rejectUnauthorized: false },
-          retryAttempts: 10,
-          retryDelay: 3000,
+          url: configService.postgresURL,
         };
       },
       inject: [config.KEY],
@@ -34,7 +30,7 @@ const API_KEY_PROD = 'production1234';
       provide: 'PG',
       useFactory: (configService: ConfigType<typeof config>) => {
         const client = new Client({
-          connectionString: configService.postresURL,
+          connectionString: configService.postgresURL,
           ssl: { rejectUnauthorized: false },
         });
 

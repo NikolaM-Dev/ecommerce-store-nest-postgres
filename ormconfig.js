@@ -6,6 +6,7 @@ module.exports = {
   migrations: ['src/database/migrations/*.ts'],
   migrationsTableName: 'migrations',
   entities: ['src/**/*.entity.ts'],
-  cli: { migrationsDir: 'src/database/migrations' },
-  ssl: { rejectUnauthorized: false },
+  cli: {
+    migrationsDir: 'src/database/migrations',
+  },
 };
