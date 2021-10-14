@@ -1,0 +1,18 @@
+# Variables
+@acces_token = {{login.response.body.access_token}}
+@authorization = Authorization: Bearer {{acces_token}}
+
+# @name login
+POST {{HOST}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "bob2@gmail.com",
+  "password": "bobbob"
+}
+
+###
+
+# @name findManyByCustomer
+GET {{HOST}}/profile/my-orders
+{{authorization}}
