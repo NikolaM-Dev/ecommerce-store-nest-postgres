@@ -14,4 +14,8 @@ export default registerAs('config', () => ({
     host: process.env.POSTGRES_HOST,
     synchronize: process.env.TYPEORM_SYNCHRONIZE === 'true',
   },
+  jwt: {
+    secret: process.env.JWT_SECRET,
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  },
 }));
