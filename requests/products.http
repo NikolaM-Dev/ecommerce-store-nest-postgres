@@ -1,3 +1,39 @@
+# Variables
+@acces_token = {{login.response.body.access_token}}
+@authorization = Authorization: Bearer {{acces_token}}
+
+# @name login
+POST {{HOST}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "bob@gmail.com",
+  "password": "bobbob"
+}
+
+###
+
+# @name loginAdmin
+POST {{HOST}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "bob@gmail.com",
+  "password": "bobbob"
+}
+
+###
+
+# @name loginCustomer
+POST {{HOST}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "bob2@gmail.com",
+  "password": "bobbob"
+}
+
+###
 # @name findMany
 GET {{HOST}}/products
 
@@ -14,17 +50,20 @@ GET {{HOST}}/products?
 GET {{HOST}}/products?
 &minPrice=600
 &maxPrice=1800
+{{authorization}}
 
 ###
 
 # @name findById
 GET {{HOST}}/products/3
+{{authorization}}
 
 ###
 
 # @name create
 POST {{HOST}}/products
 Content-Type: application/json
+{{authorization}}
 
 {
   "name": "Sabiloe4",
@@ -41,6 +80,7 @@ Content-Type: application/json
 # @name update
 PUT {{HOST}}/products/3
 Content-Type: application/json
+{{authorization}}
 
 {
   "categoriesIds": [1, 2]
@@ -50,13 +90,16 @@ Content-Type: application/json
 
 # @name addCategory
 PUT {{HOST}}/products/3/category/3
+{{authorization}}
 
 ###
 
 # @name remove
 DELETE {{HOST}}/products/1
+{{authorization}}
 
 ###
 
 # @name removeCategory
 DELETE {{HOST}}/products/3/category/3
+{{authorization}}
