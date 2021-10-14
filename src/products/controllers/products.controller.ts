@@ -12,6 +12,7 @@ import {
   ParseIntPipe,
   Query,
 } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
 
 import {
   CreateProductDto,
@@ -19,17 +20,22 @@ import {
   UpdateProductDto,
 } from '../dtos/products.dto';
 import { ProductsService } from '../services/products.service';
+import { Public } from '../../auth/decorators';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @ApiTags('Products')
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
+  @Public()
   @Get()
   async findMany(@Query() params: FilterProductsDto) {
     return await this.productsService.findMany(params);
   }
 
+  @Public()
   @Get(':id')
   @HttpCode(HttpStatus.ACCEPTED)
   async findById(@Param('id', ParseIntPipe) id: number) {
