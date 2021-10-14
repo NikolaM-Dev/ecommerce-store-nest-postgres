@@ -17,9 +17,8 @@ const API_KEY_PROD = 'production1234';
           type: 'postgres',
           url: configService.postresURL,
           ssl: { rejectUnauthorized: false },
-          synchronize: false,
-          retryDelay: 3000,
           retryAttempts: 10,
+          retryDelay: 3000,
         };
       },
       inject: [config.KEY],
