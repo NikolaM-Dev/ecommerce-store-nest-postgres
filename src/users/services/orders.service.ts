@@ -29,6 +29,13 @@ export class OrdersService {
     return order;
   }
 
+  async findManyByCustomer(customerId: number): Promise<Order[]> {
+    return await this.orderRepository.find({
+      where: { customer: customerId },
+      relations: ['customer'],
+    });
+  }
+
   async create(payload: CreateOrderDto) {
     const newOrder = new Order();
 
