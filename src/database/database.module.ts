@@ -3,6 +3,7 @@ import { ConfigType } from '@nestjs/config';
 import { Module, Global } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { getSsl } from '../common/helpers/get-ssl';
 import config from '../config';
 
 const API_KEY = '12345634';
@@ -13,10 +14,7 @@ const API_KEY_PROD = 'production1234';
   imports: [
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigType<typeof config>) => {
-        let ssl;
-
-        if (process.env.NODE_ENV !== 'prod') ssl = false;
-        else ssl = { rejectUnauthorized: false };
+        const ssl = getSsl();
 
         return {
           entities: ['dist/**/*.entity{.ts,.js}'],
@@ -38,10 +36,7 @@ const API_KEY_PROD = 'production1234';
     {
       provide: 'PG',
       useFactory: (configService: ConfigType<typeof config>) => {
-        let ssl;
-
-        if (process.env.NODE_ENV !== 'prod') ssl = false;
-        else ssl = { rejectUnauthorized: false };
+        const ssl = getSsl();
 
         const client = new Client({
           connectionString: configService.postgresURL,
