@@ -13,7 +13,16 @@ const API_KEY_PROD = 'production1234';
   imports: [
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigType<typeof config>) => {
+        let ssl;
+
+        if (process.env.NODE_ENV !== 'prod') ssl = false;
+        else ssl = { rejectUnauthorized: false };
+
         return {
+          entities: ['dist/**/*.entity{.ts,.js}'],
+          retryAttempts: 10,
+          retryDelay: 3000,
+          ssl,
           type: 'postgres',
           url: configService.postgresURL,
         };
@@ -29,9 +38,14 @@ const API_KEY_PROD = 'production1234';
     {
       provide: 'PG',
       useFactory: (configService: ConfigType<typeof config>) => {
+        let ssl;
+
+        if (process.env.NODE_ENV !== 'prod') ssl = false;
+        else ssl = { rejectUnauthorized: false };
+
         const client = new Client({
           connectionString: configService.postgresURL,
-          ssl: { rejectUnauthorized: false },
+          ssl,
         });
 
         client.connect();
