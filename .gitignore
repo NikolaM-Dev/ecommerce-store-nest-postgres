@@ -36,10 +36,8 @@ lerna-debug.log*
 
 # Enviroments
 *.env
-!.example.env
-
-# Mongo Data
-/mongo_data
+!example.env
+!example.docker.env
 
 # Postgres Data
 /postgres_data
