@@ -13,26 +13,18 @@ const API_KEY_PROD = 'production1234';
   imports: [
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigType<typeof config>) => {
-        const {
-          host,
-          port,
-          user: username,
-          password,
-          dbName: database,
-          synchronize,
-        } = configService.postgres;
+        let ssl;
+
+        if (process.env.NODE_ENV !== 'prod') ssl = false;
+        else ssl = { rejectUnauthorized: false };
 
         return {
-          type: 'postgres',
-          host,
-          port,
-          username,
-          password,
-          database,
           entities: ['dist/**/*.entity{.ts,.js}'],
-          synchronize,
-          retryDelay: 3000,
           retryAttempts: 10,
+          retryDelay: 3000,
+          ssl,
+          type: 'postgres',
+          url: configService.postgresURL,
         };
       },
       inject: [config.KEY],
@@ -46,20 +38,14 @@ const API_KEY_PROD = 'production1234';
     {
       provide: 'PG',
       useFactory: (configService: ConfigType<typeof config>) => {
-        const {
-          dbName: database,
-          user,
-          host,
-          password,
-          port,
-        } = configService.postgres;
+        let ssl;
+
+        if (process.env.NODE_ENV !== 'prod') ssl = false;
+        else ssl = { rejectUnauthorized: false };
 
         const client = new Client({
-          user,
-          host,
-          database,
-          password,
-          port,
+          connectionString: configService.postgresURL,
+          ssl,
         });
 
         client.connect();
