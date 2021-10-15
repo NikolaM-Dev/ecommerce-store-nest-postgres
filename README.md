@@ -21,7 +21,7 @@ yarn
 npm install
 ```
 
-## Running the App
+### Running the App
 
 ```sh
 # development
@@ -34,14 +34,14 @@ yarn start:dev
 yarn start:prod
 ```
 
-## How to start the database container 🐘
+### How to start the database container 🐘
 
 ```sh
 # up in background
 docker-compose up -d postgres
 ```
 
-| Son't forget to fill in the fields of `docker.example.env` and` example.env`
+| Don't forget to fill in the fields of `docker.example.env` and `example.env`
 
 ## Data Flow
 
