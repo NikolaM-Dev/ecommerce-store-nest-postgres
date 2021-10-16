@@ -41,7 +41,7 @@ yarn start:prod
 docker-compose up -d postgres
 ```
 
-| Don't forget to fill in the fields of `docker.example.env` and `example.env`
+> Don't forget to fill in the fields of `docker.example.env` and `example.env`
 
 ## Data Flow
 
